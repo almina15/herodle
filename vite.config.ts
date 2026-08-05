@@ -17,6 +17,9 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss(),
+        figmaSiteConfiguration({
+    title: "Herodle",})
+
    
     ],
     resolve: {
@@ -76,7 +79,7 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
     return html.replace(`<!-- ${slotName} -->`, content)
   }
 
-  const title = config.title ?? 'Figma Make App'
+  const title = config.title ?? 'Herodle'
   const description = config.description ?? ''
   const favicon = config.icons?.icon ?? ''
   const socialImage = config.openGraph?.image ?? ''
