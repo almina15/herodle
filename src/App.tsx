@@ -57,7 +57,7 @@ function getDailyIndex(): number {
 
 function getDailyNumber(): number {
   const n = new Date()
-  const origin = Date.UTC(2026, 7, 6)
+  const origin = Date.UTC(2026, 8, 6)
   const ms = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate())
   return Math.floor((ms - origin) / 86_400_000) + 1
 }
