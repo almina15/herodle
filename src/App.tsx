@@ -39,9 +39,10 @@ interface Stats {
 
 // ─── Game Logic ───────────────────────────────────────────────────────────────
 
-function getUtcDateString(): string {
+function getDateString(): string {
   const n = new Date()
-  return `${n.getUTCFullYear()}-${String(n.getUTCMonth() + 1).padStart(2, '0')}-${String(n.getUTCDate()).padStart(2, '0')}`
+
+  return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`
 }
 
 function getDailyIndex(): number {
@@ -52,18 +53,22 @@ function getDailyIndex(): number {
   )
 
   return day % HEROES.length
-
 }
 
 function getDailyNumber(): number {
   const n = new Date()
-const origin = Date.UTC(
-  n.getUTCFullYear(),
-  n.getUTCMonth(),
-  n.getUTCDate()
-)
-const ms = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate())
-  return Math.floor((ms - origin) / 86_400_000) + 1
+
+  const origin = new Date(2026, 7, 6)
+
+  const today = new Date(
+    n.getFullYear(),
+    n.getMonth(),
+    n.getDate()
+  )
+
+  return Math.floor(
+    (today.getTime() - origin.getTime()) / 86_400_000
+  ) + 1
 }
 
 function evaluateGuess(guess: Hero, target: Hero): GuessEval {
@@ -734,7 +739,7 @@ function HowToPlay() {
 
 export default function App() {
   const target = useMemo(() => HEROES[getDailyIndex()], [])
-  const today = useMemo(() => getUtcDateString(), [])
+  const today = useMemo(() => getDateString(), [])
 
   const [guesses, setGuesses] = useState<GuessEval[]>([])
   const [status, setStatus] = useState<'playing' | 'won' | 'lost'>('playing')
